@@ -14,3 +14,17 @@
 if ( ! defined( 'WPINC' ) ) {
     die;
 }
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employees-post-type.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms.php' );
+
+function wp_hrms_start() {
+    if ( is_admin() ) {
+        $wp_hrms_employees = new WP_HRMS_Employees_Post_Type();
+        $wp_hrms = new WP_HRMS( $wp_hrms_employees );
+        $wp_hrms->initialize();
+    } else {
+
+    }
+}
+wp_hrms_start();

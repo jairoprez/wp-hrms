@@ -1,0 +1,77 @@
+.wp_hrms_meta_data {
+    padding: 12px;
+}
+.wp_hrms_meta_data::after, .wp_hrms_meta_data::before {
+    content: "";
+    display: table;
+}
+.wp_hrms_meta_data::after {
+    clear: both;
+}
+.wp_hrms_meta_data .form-field {
+    box-sizing: border-box;
+    clear: both;
+    float: left;
+    line-height: 2em;
+    margin: 0 0 12px;
+    padding: 0 12px 0 0;
+    width: 50%;
+}
+.wp_hrms_meta_data .form-field:nth-child(2n) {
+    clear: right;
+    float: right;
+    padding: 0 0 0 12px;
+}
+.wp_hrms_meta_data .form-field:nth-last-child(-n+2) {
+    border-bottom: 0 none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.wp_hrms_meta_data .form-field label {
+    display: block;
+    font-weight: 700;
+    margin: 0;
+    vertical-align: middle;
+}
+.wp_hrms_meta_data .form-field .tips {
+    color: #999;
+    cursor: help;
+    float: right;
+    font-weight: 400;
+}
+.wp_hrms_meta_data .form-field input {
+    box-sizing: border-box;
+    margin: 1px 0;
+    vertical-align: middle;
+    width: 100%;
+}
+.wp_hrms_meta_data .form-field select {
+    box-sizing: border-box;
+    margin: 1px 0;
+    vertical-align: middle;
+    width: 100%;
+}
+.wp_hrms_meta_data .form-field textarea {
+    box-sizing: border-box;
+    margin: 1px 0;
+    vertical-align: middle;
+    width: 100%;
+}
+.wp_hrms_meta_data .form-field input.checkbox, .wp_hrms_meta_data .form-field input.radio {
+    display: inline-block;
+    margin: 4px 2px;
+    width: auto;
+}
+.wp_hrms_meta_data .form-field .description {
+    color: #999;
+    display: block;
+}
+.wp_hrms_meta_data .form-field.form-field-checkbox .description {
+    display: inline;
+}
+.wp_hrms_meta_data .form-field .file_url input {
+    width: 75%;
+}
+.wp_hrms_meta_data .form-field .button {
+    margin-left: 4px;
+}
