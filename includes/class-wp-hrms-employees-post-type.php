@@ -36,10 +36,15 @@ class WP_HRMS_Employees_Post_Type {
 
     public function employees_metaboxes() {
         add_meta_box( 'employee_meta_box', 'Personal Details', array( $this, 'employee_personal_details' ), 'wp_hrms_employees' );
+        add_meta_box( 'employee_meta_box_2', 'Company Details', array( $this, 'employee_company_details' ), 'wp_hrms_employees' );
     }
 
     public function employee_personal_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/wp-hrms-employees-form.php' );
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-personal-details-form.php' );
+    }
+
+    public function employee_company_details( $post ) {
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-company-details-form.php' );
     }
 
     public function save_employee( $employee_id ) {
@@ -48,14 +53,23 @@ class WP_HRMS_Employees_Post_Type {
         }
 
         $data = array();
+        
+        // Employee personal details
         $data['name'] = stripslashes( strip_tags( $_POST['name'] ) );
         $data['father_name'] = stripslashes( strip_tags( $_POST['father_name'] ) );
-        $data['gender'] = stripslashes( strip_tags( $_POST['gender'] ) );
+        $data['date_of_birth'] = stripslashes( strip_tags( $_POST['date_of_birth'] ) );
         $data['gender'] = stripslashes( strip_tags( $_POST['gender'] ) );
         $data['phone'] = stripslashes( strip_tags( $_POST['phone'] ) );
         $data['local_address'] = stripslashes( strip_tags( $_POST['local_address'] ) );
         $data['permanent_address'] = stripslashes( strip_tags( $_POST['permanent_address'] ) );
         $data['image'] = stripslashes( strip_tags( $_POST['image'] ) );
+        
+        // Employee company details
+        $data['employee_id'] = stripslashes( strip_tags( $_POST['employee_id'] ) );
+        $data['designation'] = stripslashes( strip_tags( $_POST['designation'] ) );
+        $data['date_of_joining'] = stripslashes( strip_tags( $_POST['date_of_joining'] ) );
+        $data['exit_date'] = stripslashes( strip_tags( $_POST['exit_date'] ) );
+        $data['basic_salary'] = stripslashes( strip_tags( $_POST['basic_salary'] ) );
 
         // Save each custom field
         foreach ( $data as $key => $value ) {

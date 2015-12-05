@@ -1,23 +1,32 @@
 jQuery( document ).ready(function( $ ) {
-    // Uploading files
-    var file_frame;
-    var file_target_input;
-    var file_target_wrapper;
+    // Datepicker
+    $( 'input#date_of_birth, input#date_of_joining, input#exit_date' ).datepicker({
+        dateFormat: 'yy-mm-dd',
+        // minDate: 0,
+        yearRange: "-100:+0",
+        changeMonth: true,
+        changeYear: true
+    });
 
-    $('.wp_job_manager_upload_file_button').live('click', function( event ){
+    // Uploading files
+    var fileFrame;
+    var fileTargetInput;
+    var fileTargetWrapper;
+
+    $( '.wp_job_manager_upload_file_button' ).live( 'click', function( event ) {
         event.preventDefault();
 
-        file_target_wrapper = $( this ).closest('.file_url');
-        file_target_input   = file_target_wrapper.find('input');
+        fileTargetWrapper = $( this ).closest( '.file_url' );
+        fileTargetInput = fileTargetWrapper.find( 'input' );
 
         // If the media frame already exists, reopen it.
-        if ( file_frame ) {
-            file_frame.open();
+        if ( fileFrame ) {
+            fileFrame.open();
             return;
         }
 
         // Create the media frame.
-        file_frame = wp.media.frames.file_frame = wp.media({
+        fileFrame = wp.media.frames.fileFrame = wp.media({
             title: $( this ).data( 'uploader_title' ),
             button: {
                 text: $( this ).data( 'uploader_button_text' ),
@@ -26,14 +35,14 @@ jQuery( document ).ready(function( $ ) {
         });
 
         // When an image is selected, run a callback.
-        file_frame.on( 'select', function() {
+        fileFrame.on( 'select', function() {
             // We set multiple to false so only get one image from the uploader
-            attachment = file_frame.state().get('selection').first().toJSON();
+            attachment = fileFrame.state().get('selection').first().toJSON();
 
-            $( file_target_input ).val( attachment.url );
+            $( fileTargetInput ).val( attachment.url );
         });
 
         // Finally, open the modal
-        file_frame.open();
+        fileFrame.open();
     });
 });
