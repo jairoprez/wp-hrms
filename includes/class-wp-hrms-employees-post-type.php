@@ -37,6 +37,8 @@ class WP_HRMS_Employees_Post_Type {
     public function employees_metaboxes() {
         add_meta_box( 'employee_meta_box', 'Personal Details', array( $this, 'employee_personal_details' ), 'wp_hrms_employees' );
         add_meta_box( 'employee_meta_box_2', 'Company Details', array( $this, 'employee_company_details' ), 'wp_hrms_employees' );
+        add_meta_box( 'employee_meta_box_3', 'Bank Details', array( $this, 'employee_bank_details' ), 'wp_hrms_employees' );
+        add_meta_box( 'employee_meta_box_4', 'Documents', array( $this, 'employee_documents' ), 'wp_hrms_employees' );
     }
 
     public function employee_personal_details( $post ) {
@@ -47,13 +49,21 @@ class WP_HRMS_Employees_Post_Type {
         require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-company-details-form.php' );
     }
 
+    public function employee_bank_details( $post ) {
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-bank-details-form.php' );
+    }
+
+    public function employee_documents( $post ) {
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-documents-form.php' );
+    }
+
     public function save_employee( $employee_id ) {
         if ( ! $this->user_can_save ( $employee_id ) ) {
             return;
         }
 
         $data = array();
-        
+
         // Employee personal details
         $data['name'] = stripslashes( strip_tags( $_POST['name'] ) );
         $data['father_name'] = stripslashes( strip_tags( $_POST['father_name'] ) );
@@ -70,6 +80,22 @@ class WP_HRMS_Employees_Post_Type {
         $data['date_of_joining'] = stripslashes( strip_tags( $_POST['date_of_joining'] ) );
         $data['exit_date'] = stripslashes( strip_tags( $_POST['exit_date'] ) );
         $data['basic_salary'] = stripslashes( strip_tags( $_POST['basic_salary'] ) );
+
+        // Employee bank details
+        $data['account_holder_name'] = stripslashes( strip_tags( $_POST['account_holder_name'] ) );
+        $data['account_number'] = stripslashes( strip_tags( $_POST['account_number'] ) );
+        $data['bank_name'] = stripslashes( strip_tags( $_POST['bank_name'] ) );
+        $data['ifsc_code'] = stripslashes( strip_tags( $_POST['ifsc_code'] ) );
+        $data['bsb'] = stripslashes( strip_tags( $_POST['bsb'] ) );
+        $data['pan_number'] = stripslashes( strip_tags( $_POST['pan_number'] ) );
+        $data['branch'] = stripslashes( strip_tags( $_POST['branch'] ) );
+
+        // Employee documents
+        $data['resume'] = stripslashes( strip_tags( $_POST['resume'] ) );
+        $data['offer_letter'] = stripslashes( strip_tags( $_POST['offer_letter'] ) );
+        $data['joining_letter'] = stripslashes( strip_tags( $_POST['joining_letter'] ) );
+        $data['contract_and_agreement'] = stripslashes( strip_tags( $_POST['contract_and_agreement'] ) );
+        $data['id_proof'] = stripslashes( strip_tags( $_POST['id_proof'] ) );
 
         // Save each custom field
         foreach ( $data as $key => $value ) {
