@@ -13,6 +13,7 @@ class WP_HRMS {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scrtips' ) );
         add_action( 'admin_menu', array( $this, 'wp_hrms_admin_menu' ) );
+        add_action( 'parent_file', array( $this, 'recipe_tax_menu_correction' ) );
 
         $this->post_types = array( 'wp_hrms_employees' );
         $this->version = '1.0.0';
@@ -50,13 +51,17 @@ class WP_HRMS {
     }
 
     public function wp_hrms_admin_menu() {
-        add_menu_page( 
-            'WP HRMS', 
-            'WP HRMS', 
-            'manage_options', 
-            'wp-hrms', 
-            '', 
-            'dashicons-universal-access-alt' 
-        );
+        add_menu_page( 'WP HRMS', 'WP HRMS', 'manage_options', 'wp-hrms', '', 'dashicons-universal-access-alt' );
+        add_submenu_page( 'wp-hrms', 'Departments', 'Departments', 'manage_options', 'edit-tags.php?taxonomy=departments');
+    }
+
+    // highlight the proper top level menu
+    public function recipe_tax_menu_correction( $parent_file ) {
+        $screen = get_current_screen();
+        if ( $screen->taxonomy == 'departments' ) {
+            $parent_file = 'wp-hrms';
+        }
+
+        return $parent_file;
     }
 }

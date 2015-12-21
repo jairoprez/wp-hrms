@@ -27,12 +27,16 @@
         <span class="file_url"><input type="text" id="image" name="image" value="<?php echo get_post_meta( get_the_ID(), 'image', true ); ?>"><button data-uploader_button_text="Usar archivo" class="button button-small wp_job_manager_upload_file_button">Subir</button></span>      
     </p>
     <p class="form-field">
-        <label>Local Address: </label>
-        <textarea id="local_address" name="local_address"><?php echo get_post_meta( get_the_ID(), 'local_address', true ); ?></textarea>
+        <label>Email: </label>
+        <?php if ( get_post_meta( get_the_ID(), 'email', true ) ) : ?>
+            <input type="text" value="<?php echo get_post_meta( get_the_ID(), 'email', true ); ?>" disabled>
+        <?php else : ?>
+            <input type="text" id="email" name="email" value="<?php echo get_post_meta( get_the_ID(), 'email', true ); ?>">
+        <?php endif; ?>
     </p>
     <p class="form-field">
-        <label>Permanent Address: </label>
-        <textarea id="permanent_address" name="permanent_address"><?php echo get_post_meta( get_the_ID(), 'permanent_address', true ); ?></textarea>
+        <label>Address: </label>
+        <textarea id="address" name="address"><?php echo get_post_meta( get_the_ID(), 'address', true ); ?></textarea>
     </p>
 </div>
 

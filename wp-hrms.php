@@ -15,6 +15,13 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-wp-hrms-activator.php
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-activator.php';
+register_activation_hook( __FILE__, array( 'WP_HRMS_Activator', 'activate' ) );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employees-post-type.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms.php' );
 

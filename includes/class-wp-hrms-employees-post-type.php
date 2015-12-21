@@ -4,8 +4,9 @@ class WP_HRMS_Employees_Post_Type {
 
     public function initialize() {
         add_action( 'init', array( $this, 'employees_post_type' ) );
-        add_action( 'add_meta_boxes', array( $this, 'employees_metaboxes' ) );
+        add_action( 'add_meta_boxes', array( $this, 'employee_metaboxes' ) );
         add_action( 'save_post', array( $this, 'save_employee' ) );
+        add_action( 'init', array( $this, 'employee_taxonomies' ) );
     }
 
     public function employees_post_type() {
@@ -34,7 +35,7 @@ class WP_HRMS_Employees_Post_Type {
         register_post_type( 'wp_hrms_employees', $args );
     }
 
-    public function employees_metaboxes() {
+    public function employee_metaboxes() {
         add_meta_box( 'employee_meta_box', 'Personal Details', array( $this, 'employee_personal_details' ), 'wp_hrms_employees' );
         add_meta_box( 'employee_meta_box_2', 'Company Details', array( $this, 'employee_company_details' ), 'wp_hrms_employees' );
         add_meta_box( 'employee_meta_box_3', 'Bank Details', array( $this, 'employee_bank_details' ), 'wp_hrms_employees' );
@@ -70,10 +71,10 @@ class WP_HRMS_Employees_Post_Type {
         $data['date_of_birth'] = stripslashes( strip_tags( $_POST['date_of_birth'] ) );
         $data['gender'] = stripslashes( strip_tags( $_POST['gender'] ) );
         $data['phone'] = stripslashes( strip_tags( $_POST['phone'] ) );
-        $data['local_address'] = stripslashes( strip_tags( $_POST['local_address'] ) );
-        $data['permanent_address'] = stripslashes( strip_tags( $_POST['permanent_address'] ) );
+        $data['address'] = stripslashes( strip_tags( $_POST['address'] ) );
         $data['image'] = stripslashes( strip_tags( $_POST['image'] ) );
-        
+        $data['email'] = stripslashes( strip_tags( $_POST['email'] ) );
+
         // Employee company details
         $data['employee_id'] = stripslashes( strip_tags( $_POST['employee_id'] ) );
         $data['designation'] = stripslashes( strip_tags( $_POST['designation'] ) );
@@ -97,6 +98,34 @@ class WP_HRMS_Employees_Post_Type {
         $data['contract_and_agreement'] = stripslashes( strip_tags( $_POST['contract_and_agreement'] ) );
         $data['id_proof'] = stripslashes( strip_tags( $_POST['id_proof'] ) );
 
+        // Account login
+        if ( $data['email'] && username_exists( $data['email'] ) == null ) {
+            // Generate the password and create the user
+            $password = wp_generate_password( 12, false );
+            $user_id = wp_create_user( $data['email'], $password, $data['email'] );
+
+            // Set the name and last name
+            wp_update_user(
+                array(
+                  'ID' => $user_id,
+                  'first_name' => $data['name'],
+                  'last_name' => $data['father_name'],
+                  'nickname' => $data['email']
+                )
+            );
+            
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'wp_hrms_employee' );
+
+            // Email the user
+            // wp_mail( 
+            //     $email_address, 
+            //     'Welcome!', 
+            //     'Your User: ' . $data['email'] . ' and Password ' . $password 
+            // );
+        }
+
         // Save each custom field
         foreach ( $data as $key => $value ) {
             update_post_meta( $employee_id, $key, $value );
@@ -104,11 +133,40 @@ class WP_HRMS_Employees_Post_Type {
         
     }
 
-    public function user_can_save( $employee_id ) {
+    private function user_can_save( $employee_id ) {
         $is_valid_nonce = ( isset( $_POST['employee-nonce'] ) ) && wp_verify_nonce( $_POST['employee-nonce'], 'employee-save' );
         $is_autosave = wp_is_post_autosave( $employee_id );
         $is_revision = wp_is_post_revision( $employee_id );
 
         return ! ( $is_autosave || $is_revision ) && $is_valid_nonce;
+    }
+
+    public function employee_taxonomies() {
+        $taxonomies = array();
+
+        $taxonomies['departments'] = array(
+            'hierarchical' => true,
+            'query_var' => 'employee_department',
+            'rewrite' => array(
+                'slug' => 'employees/department'
+            ),
+            'labels' => array(
+                'name' => 'Departments',
+                'singular_name' => 'Department',
+                'edit_item' => 'Edit Department',
+                'update_item' => 'Update Department',
+                'add_new_item' => 'Add Department',
+                'all_items' => 'All Departments',
+                'search_items' => 'Search Departments',
+                'popular_items' => 'Popular Departments',
+                'separate_items_with_commas' => 'Separate departments with commas',
+                'add_or_remove_items' => 'Add or remove departments',
+                'choose_from_most_used' => 'Choose from most used departments'
+            )
+        );
+
+        foreach ( $taxonomies as $name => $arr ) {
+            register_taxonomy( $name, array( 'wp_hrms_employees' ), $arr );
+        }
     }
 }
