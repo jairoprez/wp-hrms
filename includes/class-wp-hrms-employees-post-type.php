@@ -7,6 +7,12 @@ class WP_HRMS_Employees_Post_Type {
         add_action( 'add_meta_boxes', array( $this, 'employee_metaboxes' ) );
         add_action( 'save_post', array( $this, 'save_employee' ) );
         add_action( 'init', array( $this, 'employee_taxonomies' ) );
+        add_filter( 'manage_wp_hrms_employees_posts_columns', array( $this, 'set_employee_columns' ) );
+        add_action( 'manage_wp_hrms_employees_posts_custom_column', array( $this, 'custom_employee_columns' ), 10, 2 );
+        add_filter( 'post_row_actions', array( $this, 'remove_row_actions' ) );
+        add_filter( 'manage_edit-wp_hrms_employees_sortable_columns', array( $this, 'sortable_columns' ) );
+        add_filter( 'request', array( $this, 'sort_columns' ) );
+        add_filter( 'pre_get_posts', array( $this, 'custom_search_query' ) );
     }
 
     public function employees_post_type() {
@@ -98,6 +104,11 @@ class WP_HRMS_Employees_Post_Type {
         $data['contract_and_agreement'] = stripslashes( strip_tags( $_POST['contract_and_agreement'] ) );
         $data['id_proof'] = stripslashes( strip_tags( $_POST['id_proof'] ) );
 
+        // Remove email data if empty
+        if ( $data['email'] == '' ) {
+            unset( $data['email'] );
+        }
+
         // Account login
         if ( $data['email'] && username_exists( $data['email'] ) == null ) {
             // Generate the password and create the user
@@ -168,5 +179,139 @@ class WP_HRMS_Employees_Post_Type {
         foreach ( $taxonomies as $name => $arr ) {
             register_taxonomy( $name, array( 'wp_hrms_employees' ), $arr );
         }
+    }
+
+    public function set_employee_columns( $columns ) {
+        $columns = array(
+            'cb' => '<input type="checkbox" />',
+            'employee_id' => 'Employee ID',
+            'name' => 'Name',
+            'gender' => 'Gender',
+            'department' => 'Department',
+            'designation' => 'Designation'
+        );
+
+        return $columns;
+    }
+
+    public function custom_employee_columns( $column, $post_id ) {
+        switch ( $column ) {
+            case 'employee_id':
+                $employee_id = get_post_meta( $post_id, 'employee_id', true ); 
+                if ( $employee_id ) {
+                    echo '<strong><a href="' . admin_url( 'post.php?post=' . $post_id . '&action=edit' ) . '">' . $employee_id . '</a></strong>';
+                } else {
+                    echo '<strong><a href="' . admin_url( 'post.php?post=' . $post_id . '&action=edit' ) . '">Unknown</a></strong>';
+                }
+                break;
+
+            case 'name':
+                $name = get_post_meta( $post_id, 'name', true ); 
+                if ( $name ) {
+                    echo ucwords( $name );
+                }
+                break;
+
+            case 'gender':
+                $gender = get_post_meta( $post_id, 'gender', true );
+                if ( $gender ) {
+                    echo ucfirst( $gender );
+                }
+                break;
+
+            case 'department':
+                $terms = get_the_terms( $post_id, 'departments' );
+                if ( $terms && ! is_wp_error( $terms ) ) {
+                    $departments = array();
+                    foreach ( $terms as $term ) {
+                        $departments[] = $term->name;
+                    }
+           
+                    echo join( ', ', $departments );
+                }
+                break;
+
+            case 'designation':
+                $designation = get_post_meta( $post_id, 'designation', true ); 
+                if ( $designation ) {
+                    echo ucwords( $designation );
+                }
+                break;
+        }
+    }
+
+    public function remove_row_actions( $actions ) {
+        global $post;
+
+        if( $post->post_type == 'wp_hrms_employees' ) {
+            unset( $actions['inline hide-if-no-js'] );
+            unset( $actions['view'] );
+        }
+
+        return $actions;
+    }
+
+    public function sortable_columns( $columns ) {
+
+        $columns['name'] = 'name';
+        $columns['gender'] = 'gender';
+        $columns['designation'] = 'designation';
+
+        return $columns;
+    }
+
+    public function sort_columns( $vars ) {
+        if ( isset( $vars['orderby'] ) ) {
+            if ( $vars['orderby'] === 'name' ) {
+                $vars = array_merge( $vars, array(
+                    'meta_key'  => 'name',
+                    'orderby'   => 'meta_value'
+                ) );
+            }
+
+            if ( $vars['orderby'] === 'gender' ) {
+                $vars = array_merge( $vars, array(
+                    'meta_key'  => 'gender',
+                    'orderby'   => 'meta_value'
+                ) );
+            }
+
+            if ( $vars['orderby'] === 'designation' ) {
+                $vars = array_merge( $vars, array(
+                    'meta_key'  => 'designation',
+                    'orderby'   => 'meta_value'
+                ) );
+            }
+        }
+
+        return $vars;
+    }
+
+    function custom_search_query( $query ) {
+        // Put all the meta fields you want to search for here
+        $custom_fields = array(
+            'employee_id',
+            'name',
+            'father_name',
+            'gender',
+            'designation'
+        );
+
+        $searchterm = $query->query_vars['s'];
+
+        // Remove the "s" parameter from the query, because it will prevent the posts from being found
+        $query->query_vars['s'] = "";
+
+        if ( $searchterm != '' ) {
+            $meta_query = array('relation' => 'OR');
+            foreach( $custom_fields as $cf ) {
+                array_push( $meta_query, array(
+                    'key' => $cf,
+                    'value' => $searchterm,
+                    'compare' => 'LIKE'
+                ) );
+            }
+            $query->set( 'meta_query', $meta_query );
+        };
     }
 }
