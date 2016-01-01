@@ -51,7 +51,7 @@ function wp_hrms_start() {
         $wp_hrms = new WP_HRMS( $wp_hrms_employee );
         $wp_hrms->initialize();
     } else {
-
+        // Reserved for the front-end side
     }
 }
 wp_hrms_start();
