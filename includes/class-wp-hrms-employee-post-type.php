@@ -318,9 +318,9 @@ class WP_HRMS_Employee_Post_Type {
                 break;
 
             case 'name':
-                $name = get_post_meta( $post_id, 'name', true ); 
-                if ( $name ) {
-                    echo ucwords( $name );
+                $full_name = get_post_meta( $post_id, 'name', true ) . ' ' . get_post_meta( $post_id, 'father_name', true );
+                if ( $full_name ) {
+                    echo ucwords( $full_name );
                 }
                 break;
 
