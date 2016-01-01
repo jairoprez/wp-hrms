@@ -1,10 +1,20 @@
 <?php
 
 /**
+ * The plugin bootstrap file
+ *
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation function and defines a function that starts the plugin.
+ *
+ * @since             1.0.0
+ * @package           WP_HRMS
+ * 
+ * @wordpress-plugin
  * Plugin Name: WP HRMS
  * Plugin URI: http://perezlabs.com
  * Description: Human Resource Management System for WordPress
- * Version: 0.1.0
+ * Version: 1.0.0
  * Author: Perez Labs
  * Author URI: http://perezlabs.com
  * License: GNU General Public License version 3.0
@@ -22,13 +32,23 @@ if ( ! defined( 'WPINC' ) ) {
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-activator.php';
 register_activation_hook( __FILE__, array( 'WP_HRMS_Activator', 'activate' ) );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employees-post-type.php' );
+/**
+ * Include required core files used in admin and on the frontend.
+ */
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-post-type.php' ); // Registers employee post type
+
+/**
+ * The primary class for the plugin.
+ */
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms.php' );
 
+/**
+ * Instantiates the main class and initializes the plugin.
+ */
 function wp_hrms_start() {
     if ( is_admin() ) {
-        $wp_hrms_employees = new WP_HRMS_Employees_Post_Type();
-        $wp_hrms = new WP_HRMS( $wp_hrms_employees );
+        $wp_hrms_employee = new WP_HRMS_Employee_Post_Type();
+        $wp_hrms = new WP_HRMS( $wp_hrms_employee );
         $wp_hrms->initialize();
     } else {
 

@@ -1,21 +1,44 @@
 <?php
 
-class WP_HRMS_Employees_Post_Type {
+/**
+ * Employee Post Type
+ *
+ * Allows the management of the WP HRMS employee post type.
+ *
+ * @since      1.0.0
+ * @package    WP_HRMS
+ * @author     Jairo Pérez
+ */
+class WP_HRMS_Employee_Post_Type {
 
+    /**
+     * Initializes properties, actions and filters of the class.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function initialize() {
-        add_action( 'init', array( $this, 'employees_post_type' ) );
+        add_action( 'init', array( $this, 'employee_post_type' ) );
         add_action( 'add_meta_boxes', array( $this, 'employee_metaboxes' ) );
         add_action( 'save_post', array( $this, 'save_employee' ) );
         add_action( 'init', array( $this, 'employee_taxonomies' ) );
-        add_filter( 'manage_wp_hrms_employees_posts_columns', array( $this, 'set_employee_columns' ) );
-        add_action( 'manage_wp_hrms_employees_posts_custom_column', array( $this, 'custom_employee_columns' ), 10, 2 );
+        add_filter( 'manage_wp_hrms_employee_posts_columns', array( $this, 'set_employee_columns' ) );
+        add_action( 'manage_wp_hrms_employee_posts_custom_column', array( $this, 'custom_employee_columns' ), 10, 2 );
         add_filter( 'post_row_actions', array( $this, 'remove_row_actions' ) );
-        add_filter( 'manage_edit-wp_hrms_employees_sortable_columns', array( $this, 'sortable_columns' ) );
+        add_filter( 'manage_edit-wp_hrms_employee_sortable_columns', array( $this, 'sortable_columns' ) );
         add_filter( 'request', array( $this, 'sort_columns' ) );
         add_filter( 'pre_get_posts', array( $this, 'custom_search_query' ) );
     }
 
-    public function employees_post_type() {
+    /**
+     * Creates or modifies the employee post type.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
+    public function employee_post_type() {
         $args = array(
             'labels' => array(
                 'name' => 'Employees',
@@ -38,34 +61,86 @@ class WP_HRMS_Employees_Post_Type {
             'supports' => false
         );
         
-        register_post_type( 'wp_hrms_employees', $args );
+        register_post_type( 'wp_hrms_employee', $args );
     }
 
+    /**
+     * Registers employee metaboxes.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function employee_metaboxes() {
-        add_meta_box( 'employee_meta_box', 'Personal Details', array( $this, 'employee_personal_details' ), 'wp_hrms_employees' );
-        add_meta_box( 'employee_meta_box_2', 'Company Details', array( $this, 'employee_company_details' ), 'wp_hrms_employees' );
-        add_meta_box( 'employee_meta_box_3', 'Bank Details', array( $this, 'employee_bank_details' ), 'wp_hrms_employees' );
-        add_meta_box( 'employee_meta_box_4', 'Documents', array( $this, 'employee_documents' ), 'wp_hrms_employees' );
+        add_meta_box( 'employee_meta_box', 'Personal Details', array( $this, 'employee_personal_details' ), 'wp_hrms_employee' );
+        add_meta_box( 'employee_meta_box_2', 'Company Details', array( $this, 'employee_company_details' ), 'wp_hrms_employee' );
+        add_meta_box( 'employee_meta_box_3', 'Bank Details', array( $this, 'employee_bank_details' ), 'wp_hrms_employee' );
+        add_meta_box( 'employee_meta_box_4', 'Documents', array( $this, 'employee_documents' ), 'wp_hrms_employee' );
     }
 
+    /**
+     * Render employee personal details metabox content.
+     *
+     * @param     WP_Post $post The post object.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function employee_personal_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-personal-details-form.php' );
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-personal-details-form.php' );
     }
 
+    /**
+     * Render employee company details metabox content.
+     *
+     * @param     WP_Post $post The post object.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function employee_company_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-company-details-form.php' );
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-company-details-form.php' );
     }
 
+    /**
+     * Render employee bank details metabox content.
+     *
+     * @param     WP_Post $post The post object.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function employee_bank_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-bank-details-form.php' );
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-bank-details-form.php' );
     }
 
+    /**
+     * Render employee documents metabox content.
+     *
+     * @param     WP_Post $post The post object.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function employee_documents( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employees-documents-form.php' );
+        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-documents-form.php' );
     }
 
-    public function save_employee( $employee_id ) {
-        if ( ! $this->user_can_save ( $employee_id ) ) {
+    /**
+     * Save the meta when the post is saved.
+     *
+     * @param     int $post_id The ID of the post being saved.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
+    public function save_employee( $post_id ) {
+        if ( ! $this->user_can_save ( $post_id ) ) {
             return;
         }
 
@@ -139,23 +214,40 @@ class WP_HRMS_Employees_Post_Type {
 
         // Save each custom field
         foreach ( $data as $key => $value ) {
-            update_post_meta( $employee_id, $key, $value );
+            update_post_meta( $post_id, $key, $value );
         }
         
     }
 
-    private function user_can_save( $employee_id ) {
+    /**
+     * Verifies if the post came from the our screen and with proper authorization,
+     * because save_post can be triggered at other times.
+     *
+     * @param     int $post_id The ID of the post being saved.
+     *
+     * @access    private
+     * @since     1.0.0
+     * @return    boolean True on successful validation, else false.
+     */
+    private function user_can_save( $post_id ) {
         $is_valid_nonce = ( isset( $_POST['employee-nonce'] ) ) && wp_verify_nonce( $_POST['employee-nonce'], 'employee-save' );
-        $is_autosave = wp_is_post_autosave( $employee_id );
-        $is_revision = wp_is_post_revision( $employee_id );
+        $is_autosave = wp_is_post_autosave( $post_id );
+        $is_revision = wp_is_post_revision( $post_id );
 
         return ! ( $is_autosave || $is_revision ) && $is_valid_nonce;
     }
 
+    /**
+     * Registers employee taxonomies.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function employee_taxonomies() {
         $taxonomies = array();
 
-        $taxonomies['departments'] = array(
+        $taxonomies['department'] = array(
             'hierarchical' => true,
             'query_var' => 'employee_department',
             'rewrite' => array(
@@ -177,10 +269,19 @@ class WP_HRMS_Employees_Post_Type {
         );
 
         foreach ( $taxonomies as $name => $arr ) {
-            register_taxonomy( $name, array( 'wp_hrms_employees' ), $arr );
+            register_taxonomy( $name, array( 'wp_hrms_employee' ), $arr );
         }
     }
 
+    /**
+     * Adds custom columns for the employee table list.
+     *
+     * @param     array $columns An array of column name => label.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    array An array of column name => label.
+     */
     public function set_employee_columns( $columns ) {
         $columns = array(
             'cb' => '<input type="checkbox" />',
@@ -194,6 +295,17 @@ class WP_HRMS_Employees_Post_Type {
         return $columns;
     }
 
+    /**
+     * Adds or removes (unset) custom columns to the list post/page/custom 
+     * post type pages (which automatically appear in Screen Options).
+     *
+     * @param     string $column The name of the column to display.
+     * @param     int $post_id The ID of the current post.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function custom_employee_columns( $column, $post_id ) {
         switch ( $column ) {
             case 'employee_id':
@@ -220,7 +332,7 @@ class WP_HRMS_Employees_Post_Type {
                 break;
 
             case 'department':
-                $terms = get_the_terms( $post_id, 'departments' );
+                $terms = get_the_terms( $post_id, 'department' );
                 if ( $terms && ! is_wp_error( $terms ) ) {
                     $departments = array();
                     foreach ( $terms as $term ) {
@@ -240,10 +352,19 @@ class WP_HRMS_Employees_Post_Type {
         }
     }
 
+    /**
+     * Filter the array of row action links on the employee list table.
+     *
+     * @param     array $actions An array of row action links.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    array An array of row action links.
+     */
     public function remove_row_actions( $actions ) {
         global $post;
 
-        if( $post->post_type == 'wp_hrms_employees' ) {
+        if( $post->post_type == 'wp_hrms_employee' ) {
             unset( $actions['inline hide-if-no-js'] );
             unset( $actions['view'] );
         }
@@ -251,6 +372,15 @@ class WP_HRMS_Employees_Post_Type {
         return $actions;
     }
 
+    /**
+     * Declare a column as sortable.
+     *
+     * @param     array $columns An array of column name => label.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    array An array of column name => label.
+     */
     public function sortable_columns( $columns ) {
 
         $columns['name'] = 'name';
@@ -260,6 +390,15 @@ class WP_HRMS_Employees_Post_Type {
         return $columns;
     }
 
+    /**
+     * Sorts the content of multiple columns.
+     *
+     * @param     array $vars An array with the query vars.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    array An array with the query vars.
+     */
     public function sort_columns( $vars ) {
         if ( isset( $vars['orderby'] ) ) {
             if ( $vars['orderby'] === 'name' ) {
@@ -287,7 +426,16 @@ class WP_HRMS_Employees_Post_Type {
         return $vars;
     }
 
-    function custom_search_query( $query ) {
+    /**
+     * Gives access to the $query object by reference.
+     *
+     * @param     object $query An object with the query reference.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
+    public function custom_search_query( $query ) {
         // Put all the meta fields you want to search for here
         $custom_fields = array(
             'employee_id',

@@ -1,24 +1,70 @@
 <?php 
 
+/**
+ * The primary class for the plugin.
+ *
+ * Stores the plugin version, loads and enqueues dependencies
+ * for the plugin.
+ *
+ * @since      1.0.0
+ * @package    WP_HRMS
+ * @author     Jairo Pérez
+ */
 class WP_HRMS {
     
-    private $post_types = array();
+    /**
+     * Represents the current version of this plugin.
+     *
+     * @access    private
+     * @since     1.0.0
+     * @var       string
+     */
     private $version;
 
-    public function __construct( $employees ) {
-        $employees->initialize();
+    /**
+     * The list of available post types.
+     *
+     * @access    private
+     * @since     1.0.0
+     * @var       array
+     */
+    private $post_types = array();
+
+    /**
+     * Initializes the properties of the class.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
+    public function __construct( $employee ) {
+        $employee->initialize();
     }
 
+    /**
+     * Initializes this plugin to function.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function initialize() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scrtips' ) );
         add_action( 'admin_menu', array( $this, 'wp_hrms_admin_menu' ) );
         add_action( 'parent_file', array( $this, 'recipe_tax_menu_correction' ) );
 
-        $this->post_types = array( 'wp_hrms_employees' );
+        $this->post_types = array( 'wp_hrms_employee' );
         $this->version = '1.0.0';
     }
 
+    /**
+     * Enqueues the styles.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function enqueue_styles() {
         $screen = get_current_screen();
         if ( ! in_array( $screen->post_type, $this->post_types ) ) {
@@ -33,6 +79,13 @@ class WP_HRMS {
         );
     }
 
+    /**
+     * Enqueues the scripts.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function enqueue_scrtips() {
         $screen = get_current_screen();
         if ( ! in_array( $screen->post_type, $this->post_types ) ) {
@@ -50,15 +103,31 @@ class WP_HRMS {
         );
     }
 
+    /**
+     * Creates a new top level menu section in the admin menu 
+     * sidebar for this plugin.
+     *
+     * @access    public
+     * @since     1.0.0
+     * @return    void
+     */
     public function wp_hrms_admin_menu() {
         add_menu_page( 'WP HRMS', 'WP HRMS', 'manage_options', 'wp-hrms', '', 'dashicons-universal-access-alt' );
-        add_submenu_page( 'wp-hrms', 'Departments', 'Departments', 'manage_options', 'edit-tags.php?taxonomy=departments');
+        add_submenu_page( 'wp-hrms', 'Departments', 'Departments', 'manage_options', 'edit-tags.php?taxonomy=department');
     }
 
-    // highlight the proper top level menu
+    /**
+     * Allows this plugin move sub-menu items around.
+     *
+     * @param     string $parent_file The parent file.
+     * 
+     * @access    public
+     * @since     1.0.0
+     * @return    string A single string containing parent file.
+     */
     public function recipe_tax_menu_correction( $parent_file ) {
         $screen = get_current_screen();
-        if ( $screen->taxonomy == 'departments' ) {
+        if ( $screen->taxonomy == 'department' ) {
             $parent_file = 'wp-hrms';
         }
 
