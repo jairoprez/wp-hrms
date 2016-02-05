@@ -35,12 +35,12 @@ register_activation_hook( __FILE__, array( 'WP_HRMS_Activator', 'activate' ) );
 /**
  * Include required core files used in admin and on the frontend.
  */
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-post-type.php' ); // Registers employee post type
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-post-type.php'; // Registers employee post type
 
 /**
  * The primary class for the plugin.
  */
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms.php' );
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms.php';
 
 /**
  * Instantiates the main class and initializes the plugin.
