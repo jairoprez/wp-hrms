@@ -15,8 +15,6 @@ class WP_HRMS {
     /**
      * Represents the current version of this plugin.
      *
-     * @access    private
-     * @since     1.0.0
      * @var       string
      */
     private $version;
@@ -24,8 +22,6 @@ class WP_HRMS {
     /**
      * The list of available post types.
      *
-     * @access    private
-     * @since     1.0.0
      * @var       array
      */
     private $post_types = array();
@@ -33,8 +29,6 @@ class WP_HRMS {
     /**
      * Initializes the properties of the class.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function __construct( $employee ) {
@@ -44,8 +38,6 @@ class WP_HRMS {
     /**
      * Initializes this plugin to function.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function initialize() {
@@ -61,8 +53,6 @@ class WP_HRMS {
     /**
      * Enqueues the styles.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function enqueue_styles() {
@@ -82,8 +72,6 @@ class WP_HRMS {
     /**
      * Enqueues the scripts.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function enqueue_scrtips() {
@@ -107,8 +95,6 @@ class WP_HRMS {
      * Creates a new top level menu section in the admin menu 
      * sidebar for this plugin.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function wp_hrms_admin_menu() {
@@ -121,8 +107,6 @@ class WP_HRMS {
      *
      * @param     string $parent_file The parent file.
      * 
-     * @access    public
-     * @since     1.0.0
      * @return    string A single string containing parent file.
      */
     public function recipe_tax_menu_correction( $parent_file ) {

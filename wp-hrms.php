@@ -26,6 +26,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
+ * Helper functions definitions.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/wp-hrms-core-helper.php';
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wp-hrms-activator.php
  */
@@ -36,6 +41,7 @@ register_activation_hook( __FILE__, array( 'WP_HRMS_Activator', 'activate' ) );
  * Include required core files used in admin and on the frontend.
  */
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-post-type.php'; // Registers employee post type
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-data-display.php'; // Displays employee info in the front-end
 
 /**
  * The primary class for the plugin.
@@ -49,9 +55,10 @@ function wp_hrms_start() {
     if ( is_admin() ) {
         $wp_hrms_employee = new WP_HRMS_Employee_Post_Type();
         $wp_hrms = new WP_HRMS( $wp_hrms_employee );
-        $wp_hrms->initialize();
     } else {
-        // Reserved for the front-end side
+        $wp_hrms = new WP_HRMS_Employee_Data_Display();
     }
+
+    $wp_hrms->initialize();
 }
 wp_hrms_start();

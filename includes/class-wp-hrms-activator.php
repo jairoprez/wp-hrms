@@ -15,8 +15,6 @@ class WP_HRMS_Activator {
     /**
      * Called on plugin activation.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public static function activate() {
@@ -26,8 +24,6 @@ class WP_HRMS_Activator {
     /**
      * Init user roles.
      *
-     * @access    private
-     * @since     1.0.0
      * @return    void
      */
     private static function create_roles() {

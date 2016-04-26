@@ -14,8 +14,6 @@ class WP_HRMS_Employee_Post_Type {
     /**
      * Initializes properties, actions and filters of the class.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function initialize() {
@@ -34,8 +32,6 @@ class WP_HRMS_Employee_Post_Type {
     /**
      * Creates or modifies the employee post type.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_post_type() {
@@ -67,8 +63,6 @@ class WP_HRMS_Employee_Post_Type {
     /**
      * Registers employee metaboxes.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_metaboxes() {
@@ -83,8 +77,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     WP_Post $post The post object.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_personal_details( $post ) {
@@ -96,8 +88,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     WP_Post $post The post object.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_company_details( $post ) {
@@ -109,8 +99,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     WP_Post $post The post object.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_bank_details( $post ) {
@@ -122,8 +110,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     WP_Post $post The post object.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_documents( $post ) {
@@ -135,8 +121,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     int $post_id The ID of the post being saved.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function save_employee( $post_id ) {
@@ -225,8 +209,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     int $post_id The ID of the post being saved.
      *
-     * @access    private
-     * @since     1.0.0
      * @return    boolean True on successful validation, else false.
      */
     private function user_can_save( $post_id ) {
@@ -240,8 +222,6 @@ class WP_HRMS_Employee_Post_Type {
     /**
      * Registers employee taxonomies.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function employee_taxonomies() {
@@ -278,8 +258,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     array $columns An array of column name => label.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    array An array of column name => label.
      */
     public function set_employee_columns( $columns ) {
@@ -287,6 +265,7 @@ class WP_HRMS_Employee_Post_Type {
             'cb' => '<input type="checkbox" />',
             'employee_id' => 'Employee ID',
             'name' => 'Name',
+            'image' => 'Image',
             'gender' => 'Gender',
             'department' => 'Department',
             'designation' => 'Designation'
@@ -302,8 +281,6 @@ class WP_HRMS_Employee_Post_Type {
      * @param     string $column The name of the column to display.
      * @param     int $post_id The ID of the current post.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function custom_employee_columns( $column, $post_id ) {
@@ -322,6 +299,12 @@ class WP_HRMS_Employee_Post_Type {
                 if ( $full_name ) {
                     echo ucwords( $full_name );
                 }
+                break;
+
+            case 'image':
+                $image = get_post_meta( $post_id, 'image', true );
+                $image = ($image) ? $image : plugins_url( 'assets/images/no-profile-img.gif', dirname( __FILE__ ) );
+                echo '<img class="employee-image" src="' . $image . '">';
                 break;
 
             case 'gender':
@@ -357,8 +340,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     array $actions An array of row action links.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    array An array of row action links.
      */
     public function remove_row_actions( $actions ) {
@@ -377,8 +358,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     array $columns An array of column name => label.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    array An array of column name => label.
      */
     public function sortable_columns( $columns ) {
@@ -395,8 +374,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     array $vars An array with the query vars.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    array An array with the query vars.
      */
     public function sort_columns( $vars ) {
@@ -431,8 +408,6 @@ class WP_HRMS_Employee_Post_Type {
      *
      * @param     object $query An object with the query reference.
      *
-     * @access    public
-     * @since     1.0.0
      * @return    void
      */
     public function custom_search_query( $query ) {
