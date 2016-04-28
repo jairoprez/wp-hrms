@@ -3,21 +3,13 @@
 /**
  * The primary class for the plugin.
  *
- * Stores the plugin version, loads and enqueues dependencies
- * for the plugin.
+ * Loads and enqueues dependencies for the plugin.
  *
  * @since      1.0.0
  * @package    WP_HRMS
  * @author     Jairo Pérez
  */
 class WP_HRMS {
-    
-    /**
-     * Represents the current version of this plugin.
-     *
-     * @var       string
-     */
-    private $version;
 
     /**
      * The list of available post types.
@@ -47,7 +39,6 @@ class WP_HRMS {
         add_action( 'parent_file', array( $this, 'recipe_tax_menu_correction' ) );
 
         $this->post_types = array( 'wp_hrms_employee' );
-        $this->version = '1.0.0';
     }
 
     /**
@@ -63,9 +54,9 @@ class WP_HRMS {
 
         wp_enqueue_style(
             'wp-hrms-admin',
-            plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ),
+            WP_HRMS_PLUGIN_URL . '/assets/css/admin.css',
             array(),
-            $this->version
+            WP_HRMS_VERSION
         );
     }
 
@@ -85,9 +76,9 @@ class WP_HRMS {
 
         wp_enqueue_script(
             'wp-hrms-admin',
-            plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ),
+            WP_HRMS_PLUGIN_URL . '/assets/js/admin.js',
             array( 'jquery' ),
-            $this->version
+            WP_HRMS_VERSION
         );
     }
 

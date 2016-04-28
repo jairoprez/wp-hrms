@@ -80,7 +80,7 @@ class WP_HRMS_Employee_Post_Type {
      * @return    void
      */
     public function employee_personal_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-personal-details-form.php' );
+        require_once( WP_HRMS_PLUGIN_DIR . '/views/admin/employee-personal-details-form.php' );
     }
 
     /**
@@ -91,7 +91,7 @@ class WP_HRMS_Employee_Post_Type {
      * @return    void
      */
     public function employee_company_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-company-details-form.php' );
+        require_once( WP_HRMS_PLUGIN_DIR . '/views/admin/employee-company-details-form.php' );
     }
 
     /**
@@ -102,7 +102,7 @@ class WP_HRMS_Employee_Post_Type {
      * @return    void
      */
     public function employee_bank_details( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-bank-details-form.php' );
+        require_once( WP_HRMS_PLUGIN_DIR . '/views/admin/employee-bank-details-form.php' );
     }
 
     /**
@@ -113,7 +113,7 @@ class WP_HRMS_Employee_Post_Type {
      * @return    void
      */
     public function employee_documents( $post ) {
-        require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/admin/employee-documents-form.php' );
+        require_once( WP_HRMS_PLUGIN_DIR . '/views/admin/employee-documents-form.php' );
     }
 
     /**

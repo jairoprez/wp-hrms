@@ -26,27 +26,34 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
+ * Define constants
+ */
+define( 'WP_HRMS_VERSION', '1.0.0' );
+define( 'WP_HRMS_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'WP_HRMS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+
+/**
  * Helper functions definitions.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/wp-hrms-core-helper.php';
+require_once WP_HRMS_PLUGIN_DIR . '/includes/wp-hrms-core-helper.php';
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wp-hrms-activator.php
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-activator.php';
+require_once WP_HRMS_PLUGIN_DIR . '/includes/class-wp-hrms-activator.php';
 register_activation_hook( __FILE__, array( 'WP_HRMS_Activator', 'activate' ) );
 
 /**
  * Include required core files used in admin and on the frontend.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-post-type.php'; // Registers employee post type
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms-employee-data-display.php'; // Displays employee info in the front-end
+require_once WP_HRMS_PLUGIN_DIR . '/includes/class-wp-hrms-employee-post-type.php'; // Registers employee post type
+require_once WP_HRMS_PLUGIN_DIR . '/includes/class-wp-hrms-employee-data-display.php'; // Displays employee info in the front-end
 
 /**
  * The primary class for the plugin.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-hrms.php';
+require_once WP_HRMS_PLUGIN_DIR . '/includes/class-wp-hrms.php';
 
 /**
  * Instantiates the main class and initializes the plugin.

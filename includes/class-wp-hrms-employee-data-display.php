@@ -13,13 +13,6 @@
 class WP_HRMS_Employee_Data_Display {
 
     /**
-     * Represents the current version of this plugin.
-     *
-     * @var       string
-     */
-    private $version;
-
-    /**
      * Initializes properties, actions and filters of the class.
      *
      * @return    void
@@ -28,10 +21,15 @@ class WP_HRMS_Employee_Data_Display {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
         add_shortcode( 'show_employee_info', array( $this, 'show_employee_info' ) );
         add_action( 'init', array( $this, 'employee_taxonomies' ) );
-
-        $this->version = '1.0.0';
     }
 
+    /**
+     * Shows the detailed information of an employee.
+     * 
+     * @param  array $atts the shortcode attributes, the shortcode content (if any)
+     * 
+     * @return string HTML info/view
+     */
     public function show_employee_info( $atts ) {
         if ( is_user_logged_in() ) {
             $user = wp_get_current_user();
@@ -49,7 +47,7 @@ class WP_HRMS_Employee_Data_Display {
                 $departments = get_departments( $query->post->ID );
 
                 ob_start();
-                require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'views/public/employee-info.php' );
+                require_once( WP_HRMS_PLUGIN_DIR . '/views/public/employee-info.php' );
                 return ob_get_clean();  
             } else {
                 return '<p>There is no information available for this user yet.</p>';
@@ -88,23 +86,23 @@ class WP_HRMS_Employee_Data_Display {
     public function enqueue_styles() {
         wp_enqueue_style(
             'wp-hrms-bootstrap',
-            plugins_url( 'assets/css/bootstrap.min.css', dirname( __FILE__ ) ),
+            WP_HRMS_PLUGIN_URL . '/assets/css/bootstrap.min.css',
             array(),
-            $this->version
+            WP_HRMS_VERSION
         );
 
         wp_enqueue_style(
             'wp-hrms',
-            plugins_url( 'assets/css/public.css', dirname( __FILE__ ) ),
+            WP_HRMS_PLUGIN_URL . '/assets/css/public.css',
             array(),
-            $this->version
+            WP_HRMS_VERSION
         );
 
         wp_enqueue_style(
             'wp-hrms-font-awesome',
-            plugins_url( 'assets/css/font-awesome.min.css', dirname( __FILE__ ) ),
+            WP_HRMS_PLUGIN_URL . '/assets/css/font-awesome.min.css',
             array(),
-            $this->version
+            WP_HRMS_VERSION
         );
     }
 }

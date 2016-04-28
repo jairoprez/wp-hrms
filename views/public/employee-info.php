@@ -2,7 +2,7 @@
     <div class="row">
         <!--Left Sidebar-->
         <div class="col-md-12 md-margin-bottom-40">
-            <img alt="ProfileImage" class="profile-image rounded-x img-responsive margin-bottom-20" src="<?php echo ( $employee['image'][0] ) ? $employee['image'][0] : plugins_url() . '/wp-hrms/assets/images/no-profile-img.gif'; ?>">
+            <img alt="ProfileImage" class="profile-image rounded-x img-responsive margin-bottom-20" src="<?php echo ( $employee['image'][0] ) ? $employee['image'][0] : WP_HRMS_PLUGIN_URL . '/assets/images/no-profile-img.gif'; ?>">
 
             <h3 style="text-align: center"><?php echo $employee['name'][0]; ?> <?php echo $employee['father_name'][0]; ?></h3>
             <h6 style="text-align: center"><?php echo ( $employee['designation'][0] ) ? ucwords( $employee['designation'][0] ): ''; ?></h6>
