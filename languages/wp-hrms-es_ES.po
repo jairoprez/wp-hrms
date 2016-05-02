@@ -1,0 +1,295 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-05-02 11:09-0400\n"
+"PO-Revision-Date: 2016-05-02 13:17-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-wp-hrms-employee-data-display.php:54
+msgid "There is no information available for this user yet."
+msgstr "No hay información disponible para este usuario todavía."
+
+#: includes/class-wp-hrms-employee-data-display.php:57
+msgid "You need to be signed in to manage your profile."
+msgstr "Tiene que iniciar sesión para administrar su perfil."
+
+#: includes/class-wp-hrms-employee-data-display.php:57
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: includes/class-wp-hrms-employee-post-type.php:40
+msgid "Employees"
+msgstr "Empleados"
+
+#: includes/class-wp-hrms-employee-post-type.php:41
+msgid "Employee"
+msgstr "Empleado"
+
+#: includes/class-wp-hrms-employee-post-type.php:42
+#: includes/class-wp-hrms-employee-post-type.php:43
+msgid "Add New Employee"
+msgstr "Añadir Nuevo empleado"
+
+#: includes/class-wp-hrms-employee-post-type.php:44
+msgid "Edit Item"
+msgstr "Editar Elemento"
+
+#: includes/class-wp-hrms-employee-post-type.php:45
+msgid "Add New Item"
+msgstr "Agregar Nuevo Elemento"
+
+#: includes/class-wp-hrms-employee-post-type.php:46
+msgid "View Employee"
+msgstr "Ver Empleado"
+
+#: includes/class-wp-hrms-employee-post-type.php:47
+msgid "Search Employees"
+msgstr "Buscar Empleados"
+
+#: includes/class-wp-hrms-employee-post-type.php:48
+msgid "No Employees Found"
+msgstr "No se han encontrado empleados"
+
+#: includes/class-wp-hrms-employee-post-type.php:49
+msgid "No Employees Found in Trash"
+msgstr "No hay empleados encontrados en la basura"
+
+#: includes/class-wp-hrms-employee-post-type.php:237
+msgid "Departments"
+msgstr "Departamentos"
+
+#: includes/class-wp-hrms-employee-post-type.php:238
+#: includes/class-wp-hrms-employee-post-type.php:270
+#: views/public/employee-info.php:94
+msgid "Department"
+msgstr "Departamento"
+
+#: includes/class-wp-hrms-employee-post-type.php:239
+msgid "Edit Department"
+msgstr "Editar Departamento"
+
+#: includes/class-wp-hrms-employee-post-type.php:240
+msgid "Update Department"
+msgstr "Actualizar Departamento"
+
+#: includes/class-wp-hrms-employee-post-type.php:241
+msgid "Add Department"
+msgstr "Añadir Departamento"
+
+#: includes/class-wp-hrms-employee-post-type.php:242
+msgid "All Departments"
+msgstr "Todos los Departamentos"
+
+#: includes/class-wp-hrms-employee-post-type.php:243
+msgid "Search Departments"
+msgstr "Buscar Departamentos"
+
+#: includes/class-wp-hrms-employee-post-type.php:244
+msgid "Popular Departments"
+msgstr "Departamentos Populares"
+
+#: includes/class-wp-hrms-employee-post-type.php:245
+msgid "Separate departments with commas"
+msgstr "Departamentos separados con comas"
+
+#: includes/class-wp-hrms-employee-post-type.php:246
+msgid "Add or remove departments"
+msgstr "Añadir o eliminar departamentos"
+
+#: includes/class-wp-hrms-employee-post-type.php:247
+msgid "Choose from most used departments"
+msgstr "Elija entre la mayoría de los departamentos mas usados"
+
+#: includes/class-wp-hrms-employee-post-type.php:266
+#: views/admin/employee-company-details-form.php:3
+#: views/public/employee-info.php:86
+msgid "Employee ID"
+msgstr "ID Empleado"
+
+#: includes/class-wp-hrms-employee-post-type.php:267
+#: views/admin/employee-personal-details-form.php:3
+#: views/public/employee-info.php:27
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/class-wp-hrms-employee-post-type.php:268
+#: views/admin/employee-personal-details-form.php:26
+msgid "Image"
+msgstr "Imagen"
+
+#: includes/class-wp-hrms-employee-post-type.php:269
+#: views/admin/employee-personal-details-form.php:15
+#: views/public/employee-info.php:43
+msgid "Gender"
+msgstr "Género"
+
+#: includes/class-wp-hrms-employee-post-type.php:271
+#: views/admin/employee-company-details-form.php:7
+#: views/public/employee-info.php:102
+msgid "Designation"
+msgstr "Designación"
+
+#: includes/class-wp-hrms-employee-post-type.php:293
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: includes/wp-hrms-core-helper.php:20
+msgid "years"
+msgstr "años"
+
+#: includes/wp-hrms-core-helper.php:20
+msgid "year"
+msgstr "año"
+
+#: includes/wp-hrms-core-helper.php:24
+msgid "months"
+msgstr "meses"
+
+#: includes/wp-hrms-core-helper.php:24
+msgid "month"
+msgstr "mes"
+
+#: includes/wp-hrms-core-helper.php:27
+msgid "days"
+msgstr "días"
+
+#: includes/wp-hrms-core-helper.php:27
+msgid "day"
+msgstr "día"
+
+#: views/admin/employee-bank-details-form.php:3
+#: views/public/employee-info.php:137
+msgid "Account Holder Name"
+msgstr "Nombre del Titular de la Cuenta"
+
+#: views/admin/employee-bank-details-form.php:7
+#: views/public/employee-info.php:145
+msgid "Account Number"
+msgstr "Número de Cuenta"
+
+#: views/admin/employee-bank-details-form.php:11
+#: views/public/employee-info.php:153
+msgid "Bank Name"
+msgstr "Nombre del Banco"
+
+#: views/admin/employee-bank-details-form.php:15
+#: views/public/employee-info.php:169
+msgid "IFSC Code"
+msgstr "Código IFSC"
+
+#: views/admin/employee-bank-details-form.php:19
+msgid "BSB(if any)"
+msgstr "BSB (si existe)"
+
+#: views/admin/employee-bank-details-form.php:23
+#: views/public/employee-info.php:161
+msgid "PAN Number"
+msgstr "Número PAN"
+
+#: views/admin/employee-bank-details-form.php:27
+#: views/public/employee-info.php:177
+msgid "Branch"
+msgstr "Sucursal"
+
+#: views/admin/employee-company-details-form.php:11
+#: views/public/employee-info.php:110
+msgid "Date of Joining"
+msgstr "Fecha de Inscripción"
+
+#: views/admin/employee-company-details-form.php:15
+msgid "Exit Date"
+msgstr "Fecha de Salida"
+
+#: views/admin/employee-company-details-form.php:19
+msgid "Basic Salary"
+msgstr "Salario Base"
+
+#: views/admin/employee-documents-form.php:3
+msgid "Resume"
+msgstr "Currículum"
+
+#: views/admin/employee-documents-form.php:7
+msgid "Offer Letter"
+msgstr "Carta de Oferta"
+
+#: views/admin/employee-documents-form.php:11
+msgid "Joining Letter"
+msgstr "Carta de Inscripción"
+
+#: views/admin/employee-documents-form.php:15
+msgid "Contract and Agreement"
+msgstr "Contrato y Acuerdo"
+
+#: views/admin/employee-documents-form.php:19
+msgid "ID Proof"
+msgstr "Prueba de Identificación"
+
+#: views/admin/employee-personal-details-form.php:7
+#: views/public/employee-info.php:35
+msgid "Father's Name"
+msgstr "Apellido"
+
+#: views/admin/employee-personal-details-form.php:11
+msgid "Date of Birth"
+msgstr "Fecha de Nacimiento"
+
+#: views/admin/employee-personal-details-form.php:17
+msgid "male"
+msgstr "masculino"
+
+#: views/admin/employee-personal-details-form.php:17
+msgid "Male"
+msgstr "Masculino"
+
+#: views/admin/employee-personal-details-form.php:18
+msgid "female"
+msgstr "femenino"
+
+#: views/admin/employee-personal-details-form.php:18
+msgid "Female"
+msgstr "Femenino"
+
+#: views/admin/employee-personal-details-form.php:22
+#: views/public/employee-info.php:59
+msgid "Phone"
+msgstr "Teléfono"
+
+#: views/admin/employee-personal-details-form.php:30
+#: views/public/employee-info.php:51
+msgid "Email"
+msgstr "Correo Electrónico"
+
+#: views/admin/employee-personal-details-form.php:38
+#: views/public/employee-info.php:67
+msgid "Address"
+msgstr "Dirección"
+
+#: views/public/employee-info.php:9
+msgid "At work for"
+msgstr "En el trabajo por"
+
+#: views/public/employee-info.php:20
+msgid "Personal Details"
+msgstr "Detalles Personales"
+
+#: views/public/employee-info.php:79
+msgid "Company Details"
+msgstr "Detalles de la compañía"
+
+#: views/public/employee-info.php:118
+msgid "Salary"
+msgstr "Salario"
+
+#: views/public/employee-info.php:130
+msgid "Bank Details"
+msgstr "Detalles del Banco"

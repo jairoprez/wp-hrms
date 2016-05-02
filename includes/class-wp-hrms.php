@@ -37,6 +37,7 @@ class WP_HRMS {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scrtips' ) );
         add_action( 'admin_menu', array( $this, 'wp_hrms_admin_menu' ) );
         add_action( 'parent_file', array( $this, 'recipe_tax_menu_correction' ) );
+        add_action( 'plugins_loaded', array( $this, 'wp_hrms_load_textdomain' ) );
 
         $this->post_types = array( 'wp_hrms_employee' );
     }
@@ -90,7 +91,7 @@ class WP_HRMS {
      */
     public function wp_hrms_admin_menu() {
         add_menu_page( 'WP HRMS', 'WP HRMS', 'manage_options', 'wp-hrms', '', 'dashicons-universal-access-alt' );
-        add_submenu_page( 'wp-hrms', 'Departments', 'Departments', 'manage_options', 'edit-tags.php?taxonomy=department');
+        add_submenu_page( 'wp-hrms', __( 'Departments', 'wp-hrms' ), __( 'Departments', 'wp-hrms' ), 'manage_options', 'edit-tags.php?taxonomy=department');
     }
 
     /**
@@ -107,5 +108,14 @@ class WP_HRMS {
         }
 
         return $parent_file;
+    }
+
+    /**
+     * Load plugin textdomain.
+     *
+     * @return void
+     */
+    public function wp_hrms_load_textdomain() {
+        load_plugin_textdomain( 'wp-hrms', false, plugin_basename( WP_HRMS_PLUGIN_DIR ) . '/languages' ); 
     }
 }

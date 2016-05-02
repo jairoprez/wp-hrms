@@ -17,14 +17,14 @@ if ( ! function_exists( 'calculate_age' ) ) {
         // compose string
         $result = '';
         if( $interval->y !== 0 ) {
-            $result .= ( $interval->y > 1 )?$interval->y.' years ': $interval->y . ' year ';
+            $result .= ( $interval->y > 1 )?$interval->y . ' ' . __( 'years', 'wp-hrms' ) . ' ' : $interval->y . ' ' . __( 'year', 'wp-hrms' ) . ' ';
         }
-
+ 
         if( $interval->m !== 0 ) {
-            $result .= ( $interval->m > 1 ) ? $interval->m . ' months ' : $interval->m . ' month ';
+            $result .= ( $interval->m > 1 ) ? $interval->m . ' ' . __( 'months', 'wp-hrms' ) . ' ' : $interval->m . ' ' . __( 'month', 'wp-hrms' ) . ' ';
         }
-        
-        $result .= ( $interval->d > 1 ) ? $interval->d . ' days ' : $interval->d . ' day ';
+         
+        $result .= ( $interval->d > 1 ) ? $interval->d . ' ' . __( 'days', 'wp-hrms' ) . ' ' : $interval->d . ' ' . __( 'day', 'wp-hrms' ) . ' ';
         
         // return final string
         return $result;

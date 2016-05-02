@@ -21,6 +21,7 @@ class WP_HRMS_Employee_Data_Display {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
         add_shortcode( 'show_employee_info', array( $this, 'show_employee_info' ) );
         add_action( 'init', array( $this, 'employee_taxonomies' ) );
+        add_action( 'plugins_loaded', array( $this, 'wp_hrms_load_textdomain' ) );
     }
 
     /**
@@ -50,10 +51,10 @@ class WP_HRMS_Employee_Data_Display {
                 require_once( WP_HRMS_PLUGIN_DIR . '/views/public/employee-info.php' );
                 return ob_get_clean();  
             } else {
-                return '<p>There is no information available for this user yet.</p>';
+                return '<p>' . __( 'There is no information available for this user yet.', 'wp-hrms' ) . '</p>';
             }
         } else {
-            return '<p>You need to be signed in to manage your profile. <a href="' . apply_filters( "job_manager_job_dashboard_login_url", wp_login_url( get_permalink() ) ) . '">Log in</a></p>';
+            return '<p>' . __( 'You need to be signed in to manage your profile.', 'wp-hrms' ) . ' <a href="' . apply_filters( "job_manager_job_dashboard_login_url", wp_login_url( get_permalink() ) ) . '">' . __( 'Log in', 'wp-hrms' ) . '</a></p>';
         }
     }
 
@@ -104,5 +105,14 @@ class WP_HRMS_Employee_Data_Display {
             array(),
             WP_HRMS_VERSION
         );
+    }
+
+    /**
+     * Load plugin textdomain.
+     *
+     * @return void
+     */
+    public function wp_hrms_load_textdomain() {
+        load_plugin_textdomain( 'wp-hrms', false, plugin_basename( WP_HRMS_PLUGIN_DIR ) . '/languages' ); 
     }
 }

@@ -37,16 +37,16 @@ class WP_HRMS_Employee_Post_Type {
     public function employee_post_type() {
         $args = array(
             'labels' => array(
-                'name' => 'Employees',
-                'singular_name' => 'Employee',
-                'add_new' => 'Add New Employee',
-                'add_new_item' => 'Add New Employee',
-                'edit_item' => 'Edit Item',
-                'new_item' => 'Add New Item',
-                'view_item' => 'View Employee',
-                'search_items' => 'Search Employees',
-                'not_found' => 'No Employees Found',
-                'not_found_in_trash' => 'No Employees Found in Trash'
+                'name' => __( 'Employees', 'wp-hrms' ),
+                'singular_name' => __( 'Employee', 'wp-hrms' ),
+                'add_new' => __( 'Add New Employee', 'wp-hrms' ),
+                'add_new_item' => __( 'Add New Employee', 'wp-hrms' ),
+                'edit_item' => __( 'Edit Item', 'wp-hrms' ),
+                'new_item' => __( 'Add New Item', 'wp-hrms' ),
+                'view_item' => __( 'View Employee', 'wp-hrms' ),
+                'search_items' => __( 'Search Employees', 'wp-hrms' ),
+                'not_found' => __( 'No Employees Found', 'wp-hrms' ),
+                'not_found_in_trash' => __( 'No Employees Found in Trash', 'wp-hrms' )
             ),
             'query_var' => 'employees',
             'rewrite' => array(
@@ -234,17 +234,17 @@ class WP_HRMS_Employee_Post_Type {
                 'slug' => 'employees/department'
             ),
             'labels' => array(
-                'name' => 'Departments',
-                'singular_name' => 'Department',
-                'edit_item' => 'Edit Department',
-                'update_item' => 'Update Department',
-                'add_new_item' => 'Add Department',
-                'all_items' => 'All Departments',
-                'search_items' => 'Search Departments',
-                'popular_items' => 'Popular Departments',
-                'separate_items_with_commas' => 'Separate departments with commas',
-                'add_or_remove_items' => 'Add or remove departments',
-                'choose_from_most_used' => 'Choose from most used departments'
+                'name' => __( 'Departments', 'wp-hrms' ),
+                'singular_name' => __( 'Department', 'wp-hrms' ),
+                'edit_item' => __( 'Edit Department', 'wp-hrms' ),
+                'update_item' => __( 'Update Department', 'wp-hrms' ),
+                'add_new_item' => __( 'Add Department', 'wp-hrms' ),
+                'all_items' => __( 'All Departments', 'wp-hrms' ),
+                'search_items' => __( 'Search Departments', 'wp-hrms' ),
+                'popular_items' => __( 'Popular Departments', 'wp-hrms' ),
+                'separate_items_with_commas' => __( 'Separate departments with commas', 'wp-hrms' ),
+                'add_or_remove_items' => __( 'Add or remove departments', 'wp-hrms' ),
+                'choose_from_most_used' => __( 'Choose from most used departments', 'wp-hrms' )
             )
         );
 
@@ -263,12 +263,12 @@ class WP_HRMS_Employee_Post_Type {
     public function set_employee_columns( $columns ) {
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'employee_id' => 'Employee ID',
-            'name' => 'Name',
-            'image' => 'Image',
-            'gender' => 'Gender',
-            'department' => 'Department',
-            'designation' => 'Designation'
+            'employee_id' => __( 'Employee ID', 'wp-hrms' ),
+            'name' => __( 'Name', 'wp-hrms' ),
+            'image' => __( 'Image', 'wp-hrms' ),
+            'gender' => __( 'Gender', 'wp-hrms' ),
+            'department' => __( 'Department', 'wp-hrms' ),
+            'designation' => __( 'Designation', 'wp-hrms' )
         );
 
         return $columns;
@@ -290,7 +290,7 @@ class WP_HRMS_Employee_Post_Type {
                 if ( $employee_id ) {
                     echo '<strong><a href="' . admin_url( 'post.php?post=' . $post_id . '&action=edit' ) . '">' . $employee_id . '</a></strong>';
                 } else {
-                    echo '<strong><a href="' . admin_url( 'post.php?post=' . $post_id . '&action=edit' ) . '">Unknown</a></strong>';
+                    echo '<strong><a href="' . admin_url( 'post.php?post=' . $post_id . '&action=edit' ) . '">' . __( 'Unknown', 'wp-hrms' ) . '</a></strong>';
                 }
                 break;
 

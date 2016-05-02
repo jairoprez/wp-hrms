@@ -17,6 +17,8 @@
  * Version: 1.0.0
  * Author: Perez Labs
  * Author URI: http://perezlabs.com
+ * Text Domain: wp-hrms
+ * Domain Path: /languages
  * License: GNU General Public License version 3.0
  */
 
