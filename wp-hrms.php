@@ -14,7 +14,7 @@
  * Plugin Name: WP HRMS
  * Plugin URI: http://perezlabs.com
  * Description: Human Resource Management System for WordPress
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Perez Labs
  * Author URI: http://perezlabs.com
  * Text Domain: wp-hrms
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Define constants
  */
-define( 'WP_HRMS_VERSION', '1.0.0' );
+define( 'WP_HRMS_VERSION', '1.0.1' );
 define( 'WP_HRMS_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'WP_HRMS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 

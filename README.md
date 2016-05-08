@@ -55,6 +55,10 @@ No, currently the plugin does not support Multisite.
 
 ## Changelog
 
+### 1.0.1
+
+* Slight tweak to the employee form in admin.
+
 ### 1.0.0
 
 * First release, bugs expected.

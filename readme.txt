@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: hrm, employee, departments, human, management, resource, office
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ records of human resource of your organization. It is a light weight plugin whic
 Management features of the plugin include:
 
 * Employees
-* Department
+* Departments
 
 == Installation ==
 
@@ -58,6 +58,9 @@ No, currently the plugin does not support Multisite.
 2. Employee panel.
 
 == Changelog ==
+
+= 1.0.1 =
+* Slight tweak to the employee form in admin.
 
 = 1.0.0 =
 * First stable release.
