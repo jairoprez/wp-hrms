@@ -4,6 +4,13 @@ This is a WordPress plugin. [Official download available on wordpress.org.](http
 
 Human Resource Management System for WordPress.
 
+Table of contents:
+ * [Description](#description)
+ * [Features](#management-features-of-the-plugin-include)
+ * [Installation](#installation)
+ * [FAQ](#frequently-asked-questions)
+ * [Changelog](#changelog)
+
 ## Description
 
 WP HRMS is basically a WordPress based human resource management plugin, which can be used to maitain the 
